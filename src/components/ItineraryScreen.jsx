@@ -21,7 +21,7 @@ export default function ItineraryScreen({
   const mapHint = focusedActivity ? `Showing: ${focusedActivity.name}` : 'Showing city overview — tap a numbered pin to locate a stop';
 
   return (
-    <div style={{ padding: '32px 44px', animation: 'riseIn 0.3s ease both' }}>
+    <div className="screen-pad" style={{ animation: 'riseIn 0.3s ease both' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
         <button
           onClick={goHome}
@@ -64,7 +64,7 @@ export default function ItineraryScreen({
         </div>
       </div>
 
-      <div style={{ display: 'flex', background: '#F1E8D8', borderRadius: 12, padding: 4, marginBottom: 20, width: 240 }}>
+      <div style={{ display: 'flex', background: '#F1E8D8', borderRadius: 12, padding: 4, marginBottom: 20, width: '100%', maxWidth: 240 }}>
         {[{ id: 'itinerary', label: 'Itinerary' }, { id: 'hotels', label: 'Hotels' }].map((tab) => {
           const active = tripSection === tab.id;
           return (
@@ -92,7 +92,7 @@ export default function ItineraryScreen({
 
       {tripSection === 'itinerary' && (
         <>
-      <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
+      <div style={{ display: 'flex', gap: 6, marginBottom: 20, overflowX: 'auto', paddingBottom: 2 }}>
         {dayTabs.map((n) => {
           const active = activeDay === n;
           return (
@@ -106,6 +106,7 @@ export default function ItineraryScreen({
                 fontWeight: 700,
                 whiteSpace: 'nowrap',
                 cursor: 'pointer',
+                flexShrink: 0,
                 ...(active ? { background: '#1E2C38', color: '#fff' } : { background: '#F1E8D8', color: '#8A8072' }),
               }}
             >
@@ -115,8 +116,8 @@ export default function ItineraryScreen({
         })}
       </div>
 
-      <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
-        <div style={{ width: 420, flexShrink: 0 }}>
+      <div className="itinerary-columns">
+        <div className="itinerary-activity-col">
           {rawDayActs.map((a, i) => {
             const meta = CATEGORY_META[a.category];
             const showAddedBy = showAddedByTags && trip.members.length > 1;

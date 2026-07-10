@@ -48,3 +48,141 @@ body {
 input[type='range'] {
   accent-color: #e0663f;
 }
+
+.app-outer {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 1280px;
+  height: 86vh;
+  min-height: 640px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 30px 80px rgba(30, 44, 56, 0.18);
+  position: relative;
+}
+
+.app-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px;
+}
+
+.app-sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  min-height: 0;
+}
+
+.app-brand {
+  font-family: 'Newsreader', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e2c38;
+  padding: 0 8px 26px;
+}
+
+.app-nav-item {
+  padding: 10px 12px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.app-new-trip-btn {
+  margin-top: 20px;
+  padding: 11px 14px;
+  font-size: 13.5px;
+}
+
+.screen-pad {
+  padding: 36px 44px;
+}
+
+.itinerary-columns {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.itinerary-activity-col {
+  width: 420px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .app-outer {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .app-shell {
+    max-width: 100%;
+    height: 100dvh;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+    flex-direction: column;
+  }
+
+  .app-sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 10px 10px;
+    gap: 2px;
+    overflow-x: auto;
+  }
+
+  .app-sidebar-footer {
+    display: none;
+  }
+
+  .app-brand {
+    padding: 0 6px 0 2px;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .app-nav-item {
+    margin-bottom: 0;
+    padding: 7px 8px;
+    font-size: 12.5px;
+  }
+
+  .app-new-trip-btn {
+    margin-top: 0;
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 9px 11px;
+    font-size: 12.5px;
+  }
+
+  .screen-pad {
+    padding: 22px 18px;
+  }
+
+  .itinerary-columns {
+    flex-direction: column;
+  }
+
+  .itinerary-activity-col {
+    width: 100%;
+  }
+}

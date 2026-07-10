@@ -6,7 +6,7 @@ export default function HotelImportSheet({ importState, importText, onImportText
         background: '#FAF5EC',
         borderRadius: 20,
         padding: 26,
-        width: 440,
+        width: 'min(440px, calc(100vw - 48px))',
         maxHeight: '80%',
         overflow: 'auto',
         animation: 'modalUp 0.22s ease both',

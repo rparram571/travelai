@@ -331,30 +331,13 @@ export default function App() {
 
   return (
     <div
+      className="app-outer"
       style={{
-        width: '100%',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        padding: '40px 24px',
         background: 'radial-gradient(ellipse at 30% 0%, #F5EDDC 0%, #EDE4D3 55%, #E6DBC5 100%)',
         fontFamily: "'Plus Jakarta Sans',sans-serif",
       }}
     >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: 1280,
-          height: '86vh',
-          minHeight: 640,
-          display: 'flex',
-          background: '#FAF5EC',
-          overflow: 'hidden',
-          borderRadius: 20,
-          boxShadow: '0 30px 80px rgba(30,44,56,0.18)',
-        }}
-      >
+      <div className="app-shell" style={{ background: '#FAF5EC' }}>
         <Sidebar tab={tab} goToTrips={goToTrips} goToFlights={goToFlights} goToGuide={goToGuide} openForm={openForm} />
 
         <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>

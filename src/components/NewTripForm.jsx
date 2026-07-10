@@ -8,7 +8,7 @@ export default function NewTripForm({ form, backFromForm, onDestinationChange, o
   const generateDisabled = !form.destination.trim();
 
   return (
-    <div style={{ padding: '36px 44px', animation: 'riseIn 0.3s ease both', maxWidth: 560 }}>
+    <div className="screen-pad" style={{ animation: 'riseIn 0.3s ease both', maxWidth: 560 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 22 }}>
         <button
           onClick={backFromForm}

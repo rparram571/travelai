@@ -6,7 +6,7 @@ export default function MembersSheet({ trip, inviteEmail, onInviteEmailChange, s
         background: '#FAF5EC',
         borderRadius: 20,
         padding: 26,
-        width: 400,
+        width: 'min(400px, calc(100vw - 48px))',
         maxHeight: '70%',
         overflow: 'auto',
         animation: 'modalUp 0.22s ease both',

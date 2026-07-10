@@ -21,7 +21,7 @@ export default function ActivitySheet({ activity, editDraft, onEditTimeChange, o
         background: '#FAF5EC',
         borderRadius: 20,
         padding: 26,
-        width: 420,
+        width: 'min(420px, calc(100vw - 48px))',
         maxHeight: '80%',
         overflow: 'auto',
         animation: 'modalUp 0.22s ease both',

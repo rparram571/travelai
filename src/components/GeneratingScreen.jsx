@@ -2,7 +2,7 @@ import { GEN_STEPS } from '../data';
 
 export default function GeneratingScreen({ destination, genStep }) {
   return (
-    <div style={{ padding: '80px 44px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+    <div style={{ padding: 'clamp(40px, 10vh, 80px) 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
       <div
         style={{
           width: 56,

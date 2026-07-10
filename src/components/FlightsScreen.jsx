@@ -1,6 +1,6 @@
 export default function FlightsScreen({ flights, activeAlert, dismissAlert, snoozeAlert, openFlightImport, toggleFlightAlerts }) {
   return (
-    <div style={{ padding: '36px 44px', animation: 'riseIn 0.3s ease both', maxWidth: 640 }}>
+    <div className="screen-pad" style={{ animation: 'riseIn 0.3s ease both', maxWidth: 640 }}>
       <div style={{ fontFamily: "'Newsreader',serif", fontSize: 30, fontWeight: 600, color: '#1E2C38', marginBottom: 4 }}>Flights</div>
       <div style={{ fontSize: 14, color: '#8A8072', marginBottom: 22 }}>Tokyo Adventure &middot; real-time alerts on</div>
 

@@ -1,6 +1,6 @@
 export default function TripsHome({ trips, openTrip }) {
   return (
-    <div style={{ padding: '36px 44px', animation: 'riseIn 0.3s ease both' }}>
+    <div className="screen-pad" style={{ animation: 'riseIn 0.3s ease both' }}>
       <div style={{ fontFamily: "'Newsreader',serif", fontSize: 30, fontWeight: 600, color: '#1E2C38', marginBottom: 4 }}>Your Trips</div>
       <div style={{ fontSize: 14, color: '#8A8072', marginBottom: 28 }}>Plans, alerts &amp; group chats, all in one place</div>
 
