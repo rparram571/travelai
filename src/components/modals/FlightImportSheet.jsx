@@ -1,0 +1,86 @@
+export default function FlightImportSheet({ importState, importText, onImportTextChange, parseImport, extractedFlight, confirmImport, stop }) {
+  return (
+    <div
+      onClick={stop}
+      style={{
+        background: '#FAF5EC',
+        borderRadius: 20,
+        padding: 26,
+        width: 440,
+        maxHeight: '80%',
+        overflow: 'auto',
+        animation: 'modalUp 0.22s ease both',
+      }}
+    >
+      <div style={{ fontFamily: "'Newsreader',serif", fontSize: 20, fontWeight: 600, color: '#1E2C38', marginBottom: 16 }}>Import flight</div>
+
+      {importState === 'idle' && (
+        <>
+          <textarea
+            value={importText}
+            onChange={onImportTextChange}
+            placeholder="Paste your confirmation email here…"
+            rows={5}
+            style={{
+              width: '100%',
+              border: '1.5px solid #EAE1CF',
+              background: '#fff',
+              borderRadius: 14,
+              padding: '13px 14px',
+              fontSize: 13.5,
+              fontFamily: "'Plus Jakarta Sans',sans-serif",
+              marginBottom: 16,
+              resize: 'none',
+            }}
+          ></textarea>
+          <button
+            onClick={parseImport}
+            style={{ width: '100%', border: 'none', background: '#E0663F', color: '#fff', fontWeight: 700, fontSize: 14, padding: 14, borderRadius: 14, cursor: 'pointer' }}
+          >
+            Parse email
+          </button>
+        </>
+      )}
+
+      {importState === 'parsing' && (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '30px 0' }}>
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              border: '3px solid #F1E8D8',
+              borderTopColor: '#E0663F',
+              animation: 'spin 0.9s linear infinite',
+              marginBottom: 16,
+            }}
+          ></div>
+          <div style={{ fontSize: 13, color: '#8A8072' }}>Extracting flight details…</div>
+        </div>
+      )}
+
+      {importState === 'done' && extractedFlight && (
+        <>
+          <div style={{ background: '#fff', borderRadius: 16, padding: 16, marginBottom: 16, border: '1px solid #F0E9DC' }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#2F8F82', marginBottom: 10 }}>✓ Flight details found</div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: '#1E2C38', marginBottom: 4 }}>
+              {extractedFlight.flightNumber} &middot; {extractedFlight.airline}
+            </div>
+            <div style={{ fontSize: 13, color: '#33404A' }}>
+              {extractedFlight.from} → {extractedFlight.to} &middot; {extractedFlight.departDate}
+            </div>
+            <div style={{ fontSize: 12, color: '#8A8072', marginTop: 6 }}>
+              Seat {extractedFlight.seat} &middot; Conf. {extractedFlight.confirmation}
+            </div>
+          </div>
+          <button
+            onClick={confirmImport}
+            style={{ width: '100%', border: 'none', background: '#E0663F', color: '#fff', fontWeight: 700, fontSize: 14, padding: 14, borderRadius: 14, cursor: 'pointer' }}
+          >
+            Add to trip
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
