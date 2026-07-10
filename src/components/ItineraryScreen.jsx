@@ -1,6 +1,10 @@
 import { CATEGORY_META } from '../data';
+import HotelsPanel from './HotelsPanel';
 
-export default function ItineraryScreen({ trip, activeDay, selectDay, goHome, openMembers, openActivity, focusMapOn, mapFocusId, showAddedByTags }) {
+export default function ItineraryScreen({
+  trip, activeDay, selectDay, goHome, openMembers, openActivity, focusMapOn, mapFocusId, showAddedByTags,
+  tripSection, setTripSection, openHotelImport, addSuggestedHotel,
+}) {
   const soloTrip = trip.members.length <= 1;
   const avatarStack = trip.members
     .filter((m) => m.status === 'joined')
@@ -60,6 +64,34 @@ export default function ItineraryScreen({ trip, activeDay, selectDay, goHome, op
         </div>
       </div>
 
+      <div style={{ display: 'flex', background: '#F1E8D8', borderRadius: 12, padding: 4, marginBottom: 20, width: 240 }}>
+        {[{ id: 'itinerary', label: 'Itinerary' }, { id: 'hotels', label: 'Hotels' }].map((tab) => {
+          const active = tripSection === tab.id;
+          return (
+            <div
+              key={tab.id}
+              onClick={() => setTripSection(tab.id)}
+              style={{
+                flex: 1,
+                textAlign: 'center',
+                padding: '8px',
+                borderRadius: 9,
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: 'pointer',
+                ...(active ? { background: '#fff', color: '#1E2C38', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' } : { color: '#8A8072' }),
+              }}
+            >
+              {tab.label}
+            </div>
+          );
+        })}
+      </div>
+
+      {tripSection === 'hotels' && <HotelsPanel trip={trip} openHotelImport={openHotelImport} addSuggestedHotel={addSuggestedHotel} />}
+
+      {tripSection === 'itinerary' && (
+        <>
       <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
         {dayTabs.map((n) => {
           const active = activeDay === n;
@@ -146,6 +178,8 @@ export default function ItineraryScreen({ trip, activeDay, selectDay, goHome, op
           <div style={{ fontSize: 12, color: '#A79E8F', marginTop: 10 }}>{mapHint}</div>
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 }

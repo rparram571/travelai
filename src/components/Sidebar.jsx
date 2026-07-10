@@ -1,4 +1,4 @@
-export default function Sidebar({ tab, goToTrips, goToFlights, openForm }) {
+export default function Sidebar({ tab, goToTrips, goToFlights, goToGuide, openForm }) {
   const navBase = {
     padding: '10px 12px',
     borderRadius: 11,
@@ -9,6 +9,7 @@ export default function Sidebar({ tab, goToTrips, goToFlights, openForm }) {
   };
   const tripsNavStyle = { ...navBase, ...(tab === 'trips' ? { background: '#fff', color: '#1E2C38' } : { color: '#8A8072' }) };
   const flightsNavStyle = { ...navBase, ...(tab === 'flights' ? { background: '#fff', color: '#1E2C38' } : { color: '#8A8072' }) };
+  const guideNavStyle = { ...navBase, ...(tab === 'guide' ? { background: '#fff', color: '#1E2C38' } : { color: '#8A8072' }) };
 
   return (
     <div
@@ -28,6 +29,9 @@ export default function Sidebar({ tab, goToTrips, goToFlights, openForm }) {
       </div>
       <div onClick={goToFlights} style={flightsNavStyle}>
         Flights
+      </div>
+      <div onClick={goToGuide} style={guideNavStyle}>
+        Guide
       </div>
       <button
         onClick={openForm}

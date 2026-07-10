@@ -32,7 +32,11 @@ export function tokyoTrip() {
     destination: 'Tokyo, Japan',
     dateLabel: 'Mar 14 – 19',
     dayCount: 4,
+    budget: 3200,
     generated: false,
+    hotels: [
+      { id: 'h1', name: 'Park Hyatt Tokyo', area: 'Shinjuku', pricePerNight: 620, nights: 5, confirmation: 'PHT-88214', addedBy: 'you' },
+    ],
     members: [
       { id: 'you', name: 'You', initials: 'Y', color: '#E0663F', role: 'organizer', status: 'joined' },
       { id: 'maya', name: 'Maya Chen', initials: 'MC', color: '#2F8F82', role: 'collaborator', status: 'joined' },
@@ -89,28 +93,74 @@ export const BARCELONA_CANNED = [
   { day: 3, time: '9:00 PM', name: 'Flamenco show in Poble Sec', category: 'activity', cost: 45 },
 ];
 
-export function genericItinerary(city) {
-  return [
+// Rotating pool of 4-activity daily templates, used both to fill out generic
+// itineraries beyond day 1 and to extend canned itineraries past their curated days.
+const DAILY_TEMPLATES = [
+  [
+    { time: '9:00 AM', name: () => 'Local history museum visit', category: 'tour', cost: 12 },
+    { time: '12:00 PM', name: () => 'Neighborhood bike tour', category: 'activity', cost: 10 },
+    { time: '3:00 PM', name: () => 'Artisan market & shopping', category: 'shopping', cost: 0 },
+    { time: '8:00 PM', name: () => 'Rooftop views & drinks', category: 'activity', cost: 25 },
+  ],
+  [
+    { time: '9:00 AM', name: () => 'Sunrise viewpoint walk', category: 'tour', cost: 0 },
+    { time: '12:30 PM', name: () => 'Waterfront lunch', category: 'dining', cost: 20 },
+    { time: '3:30 PM', name: (city) => `Day trip to a nearby highlight near ${city}`, category: 'activity', cost: 35 },
+    { time: '8:30 PM', name: (city) => `Farewell dinner in ${city}`, category: 'dining', cost: 55 },
+  ],
+  [
+    { time: '9:30 AM', name: () => 'Local market breakfast crawl', category: 'dining', cost: 12 },
+    { time: '11:30 AM', name: () => 'Guided landmark tour', category: 'tour', cost: 22 },
+    { time: '2:30 PM', name: () => 'Free afternoon to explore on your own', category: 'activity', cost: 0 },
+    { time: '7:00 PM', name: (city) => `Wine & tapas evening in ${city}`, category: 'dining', cost: 40 },
+  ],
+  [
+    { time: '10:00 AM', name: () => 'Scenic park & garden walk', category: 'tour', cost: 0 },
+    { time: '1:00 PM', name: () => 'Street food sampling', category: 'dining', cost: 16 },
+    { time: '4:00 PM', name: () => 'Boutique & design shopping', category: 'shopping', cost: 0 },
+    { time: '8:00 PM', name: (city) => `Live music night out in ${city}`, category: 'activity', cost: 28 },
+  ],
+];
+
+function fillerDay(dayNumber, city, templateIndex) {
+  const template = DAILY_TEMPLATES[templateIndex % DAILY_TEMPLATES.length];
+  return template.map((slot) => ({ day: dayNumber, time: slot.time, name: slot.name(city), category: slot.category, cost: slot.cost }));
+}
+
+export function genericItinerary(city, days) {
+  const day1 = [
     { day: 1, time: '9:00 AM', name: `Check in — boutique stay in ${city}`, category: 'lodging', cost: 0 },
     { day: 1, time: '11:00 AM', name: `Old town walking tour of ${city}`, category: 'tour', cost: 15 },
     { day: 1, time: '1:30 PM', name: 'Central market food crawl', category: 'dining', cost: 18 },
     { day: 1, time: '7:30 PM', name: `Signature dinner in ${city}`, category: 'dining', cost: 50 },
-    { day: 2, time: '9:00 AM', name: 'Local history museum visit', category: 'tour', cost: 12 },
-    { day: 2, time: '12:00 PM', name: 'Neighborhood bike tour', category: 'activity', cost: 10 },
-    { day: 2, time: '3:00 PM', name: 'Artisan market & shopping', category: 'shopping', cost: 0 },
-    { day: 2, time: '8:00 PM', name: 'Rooftop views & drinks', category: 'activity', cost: 25 },
-    { day: 3, time: '9:00 AM', name: 'Sunrise viewpoint walk', category: 'tour', cost: 0 },
-    { day: 3, time: '12:30 PM', name: 'Waterfront lunch', category: 'dining', cost: 20 },
-    { day: 3, time: '3:30 PM', name: 'Day trip to a nearby highlight', category: 'activity', cost: 35 },
-    { day: 3, time: '8:30 PM', name: `Farewell dinner in ${city}`, category: 'dining', cost: 55 },
   ];
+  const rest = [];
+  for (let dayNumber = 2, i = 0; dayNumber <= days; dayNumber++, i++) {
+    rest.push(...fillerDay(dayNumber, city, i));
+  }
+  return [...day1, ...rest];
 }
 
-export function pickItinerary(destination) {
+// Extends a curated itinerary with generated filler days when the trip is
+// longer than the curated data, or trims it when the trip is shorter.
+function adjustToDays(canned, days, city) {
+  const maxCannedDay = Math.max(...canned.map((a) => a.day));
+  if (days <= maxCannedDay) {
+    return canned.filter((a) => a.day <= days);
+  }
+  const extra = [];
+  for (let dayNumber = maxCannedDay + 1, i = 0; dayNumber <= days; dayNumber++, i++) {
+    extra.push(...fillerDay(dayNumber, city, i));
+  }
+  return [...canned, ...extra];
+}
+
+export function pickItinerary(destination, days) {
   const d = destination.toLowerCase();
-  if (d.includes('lisbon')) return LISBON_CANNED;
-  if (d.includes('barcelona')) return BARCELONA_CANNED;
-  return genericItinerary(destination.split(',')[0].trim());
+  const city = destination.split(',')[0].trim();
+  if (d.includes('lisbon')) return adjustToDays(LISBON_CANNED, days, city);
+  if (d.includes('barcelona')) return adjustToDays(BARCELONA_CANNED, days, city);
+  return genericItinerary(city, days);
 }
 
 export function initialFlights() {

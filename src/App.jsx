@@ -5,9 +5,11 @@ import NewTripForm from './components/NewTripForm';
 import GeneratingScreen from './components/GeneratingScreen';
 import ItineraryScreen from './components/ItineraryScreen';
 import FlightsScreen from './components/FlightsScreen';
+import GuideScreen from './components/GuideScreen';
 import MembersSheet from './components/modals/MembersSheet';
 import ActivitySheet from './components/modals/ActivitySheet';
 import FlightImportSheet from './components/modals/FlightImportSheet';
+import HotelImportSheet from './components/modals/HotelImportSheet';
 import { AVATAR_COLORS, GEN_STEPS, initialFlights, pickItinerary, tokyoTrip } from './data';
 
 const SHOW_ADDED_BY_TAGS = true;
@@ -30,6 +32,10 @@ export default function App() {
   const [importState, setImportState] = useState('idle');
   const [extractedFlight, setExtractedFlight] = useState(null);
   const [mapFocusId, setMapFocusId] = useState(null);
+  const [tripSection, setTripSection] = useState('itinerary');
+  const [hotelImportText, setHotelImportText] = useState('');
+  const [hotelImportState, setHotelImportState] = useState('idle');
+  const [extractedHotel, setExtractedHotel] = useState(null);
 
   const findTrip = (id) => trips.find((t) => t.id === id);
   const currentTrip = findTrip(currentTripId) || trips[0];
@@ -39,6 +45,7 @@ export default function App() {
     setCurrentTripId(id);
     setActiveDay(1);
     setMapFocusId(null);
+    setTripSection('itinerary');
   }
   function goHome() {
     setTripScreen('home');
@@ -55,6 +62,9 @@ export default function App() {
   }
   function goToFlights() {
     setTab('flights');
+  }
+  function goToGuide() {
+    setTab('guide');
   }
 
   function onDestinationChange(e) {
@@ -100,7 +110,7 @@ export default function App() {
   function finishGenerate() {
     const f = form;
     const id = 'trip-' + Date.now();
-    const activities = pickItinerary(f.destination).map((a, i) => ({
+    const activities = pickItinerary(f.destination, f.days).map((a, i) => ({
       id: id + '-a' + i,
       day: a.day,
       time: a.time,
@@ -116,7 +126,9 @@ export default function App() {
       destination: f.destination,
       dateLabel: f.days + '-day trip',
       dayCount: f.days,
+      budget: f.budget,
       generated: true,
+      hotels: [],
       members: [{ id: 'you', name: 'You', initials: 'Y', color: '#E0663F', role: 'organizer', status: 'joined' }],
       activities,
     };
@@ -125,6 +137,7 @@ export default function App() {
     setCurrentTripId(id);
     setActiveDay(1);
     setMapFocusId(null);
+    setTripSection('itinerary');
   }
 
   function selectDay(n) {
@@ -247,11 +260,56 @@ export default function App() {
     dismissAlert();
   }
 
+  function openHotelImport() {
+    setSheet('hotelImport');
+    setHotelImportState('idle');
+    setHotelImportText('');
+    setExtractedHotel(null);
+  }
+  function onHotelImportTextChange(e) {
+    setHotelImportText(e.target.value);
+  }
+  function parseHotelImport() {
+    setHotelImportState('parsing');
+    setTimeout(() => {
+      setHotelImportState('done');
+      setExtractedHotel({
+        name: 'Beachfront Villa Suites',
+        area: 'Marina District',
+        pricePerNight: 210,
+        nights: 4,
+        confirmation: 'BVS-7734X',
+      });
+    }, 1000);
+  }
+  function confirmHotelImport() {
+    setTrips((ts) =>
+      ts.map((t) => (t.id !== currentTripId ? t : { ...t, hotels: [...t.hotels, { id: 'h-' + Date.now(), ...extractedHotel, addedBy: 'you' }] }))
+    );
+    setSheet(null);
+  }
+  function addSuggestedHotel(suggestion) {
+    setTrips((ts) =>
+      ts.map((t) =>
+        t.id !== currentTripId
+          ? t
+          : {
+              ...t,
+              hotels: [
+                ...t.hotels,
+                { id: 'h-' + Date.now(), name: suggestion.name, area: suggestion.area, pricePerNight: suggestion.pricePerNight, nights: t.dayCount, confirmation: null, addedBy: 'you' },
+              ],
+            }
+      )
+    );
+  }
+
   const isHome = tab === 'trips' && tripScreen === 'home';
   const isForm = tab === 'trips' && tripScreen === 'form';
   const isGenerating = tab === 'trips' && tripScreen === 'generating';
   const isItinerary = tab === 'trips' && tripScreen === 'itinerary';
   const isFlightsTab = tab === 'flights';
+  const isGuideTab = tab === 'guide';
 
   const activeAlert = FLIGHT_ALERT_DEMO
     ? (() => {
@@ -297,7 +355,7 @@ export default function App() {
           boxShadow: '0 30px 80px rgba(30,44,56,0.18)',
         }}
       >
-        <Sidebar tab={tab} goToTrips={goToTrips} goToFlights={goToFlights} openForm={openForm} />
+        <Sidebar tab={tab} goToTrips={goToTrips} goToFlights={goToFlights} goToGuide={goToGuide} openForm={openForm} />
 
         <div style={{ flex: 1, overflow: 'auto', position: 'relative' }}>
           {isHome && <TripsHome trips={trips} openTrip={openTrip} showAddedByTags={SHOW_ADDED_BY_TAGS} />}
@@ -328,6 +386,10 @@ export default function App() {
               focusMapOn={focusMapOn}
               mapFocusId={mapFocusId}
               showAddedByTags={SHOW_ADDED_BY_TAGS}
+              tripSection={tripSection}
+              setTripSection={setTripSection}
+              openHotelImport={openHotelImport}
+              addSuggestedHotel={addSuggestedHotel}
             />
           )}
 
@@ -341,6 +403,8 @@ export default function App() {
               toggleFlightAlerts={toggleFlightAlerts}
             />
           )}
+
+          {isGuideTab && <GuideScreen />}
         </div>
 
         {sheet && (
@@ -388,6 +452,18 @@ export default function App() {
                 parseImport={parseImport}
                 extractedFlight={extractedFlight}
                 confirmImport={confirmImport}
+                stop={stop}
+              />
+            )}
+
+            {sheet === 'hotelImport' && (
+              <HotelImportSheet
+                importState={hotelImportState}
+                importText={hotelImportText}
+                onImportTextChange={onHotelImportTextChange}
+                parseImport={parseHotelImport}
+                extractedHotel={extractedHotel}
+                confirmImport={confirmHotelImport}
                 stop={stop}
               />
             )}
