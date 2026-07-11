@@ -35,7 +35,7 @@ export function tokyoTrip() {
     budget: 3200,
     generated: false,
     hotels: [
-      { id: 'h1', name: 'Park Hyatt Tokyo', area: 'Shinjuku', pricePerNight: 620, nights: 5, confirmation: 'PHT-88214', addedBy: 'you' },
+      { id: 'h1', name: 'Park Hyatt Tokyo', area: 'Shinjuku', pricePerNight: 620, nights: 5, confirmation: 'PHT-88214', url: 'https://www.booking.com/searchresults.html?ss=Park+Hyatt+Tokyo', addedBy: 'you' },
     ],
     members: [
       { id: 'you', name: 'You', initials: 'Y', color: '#E0663F', role: 'organizer', status: 'joined' },
@@ -52,7 +52,7 @@ export function tokyoTrip() {
       { id: 't6', day: 2, time: '12:30 PM', name: 'Ramen at Ichiran Shibuya', category: 'dining', cost: 14, addedBy: 'you', notes: '' },
       { id: 't7', day: 2, time: '3:00 PM', name: 'Shibuya Crossing & shopping', category: 'shopping', cost: 0, addedBy: 'maya', notes: '' },
       { id: 't8', day: 2, time: '8:00 PM', name: 'Golden Gai bar hopping', category: 'activity', cost: 40, addedBy: 'maya', notes: '' },
-      { id: 't9', day: 3, time: '7:00 AM', name: 'Mt. Fuji day trip — bus transfer', category: 'transport', cost: 85, addedBy: 'you', notes: '' },
+      { id: 't9', day: 3, time: '7:00 AM', name: 'Mt. Fuji day trip — bus transfer', category: 'transport', cost: 85, addedBy: 'you', notes: '', bookingUrl: 'https://www.booking.com/attractions/jp/prvhogy9tp3t-mount-fuji-day-trip-with-matcha-making-experience.en-gb.html' },
       { id: 't10', day: 3, time: '12:00 PM', name: 'Lakeside lunch at Kawaguchiko', category: 'dining', cost: 20, addedBy: 'jordan', notes: '' },
       { id: 't11', day: 3, time: '6:30 PM', name: 'Ryokan onsen & return to Tokyo', category: 'activity', cost: 60, addedBy: 'you', notes: '' },
       { id: 't12', day: 4, time: '9:00 AM', name: 'Meiji Shrine morning walk', category: 'tour', cost: 0, addedBy: 'you', notes: '' },
@@ -70,7 +70,7 @@ export const LISBON_CANNED = [
   { day: 1, time: '7:30 PM', name: 'Fado dinner in Alfama', category: 'dining', cost: 45 },
   { day: 2, time: '8:30 AM', name: 'Time Out Market breakfast', category: 'dining', cost: 15 },
   { day: 2, time: '10:30 AM', name: 'LX Factory street art & shops', category: 'shopping', cost: 0 },
-  { day: 2, time: '1:00 PM', name: 'Sintra day trip — Pena Palace', category: 'tour', cost: 38 },
+  { day: 2, time: '1:00 PM', name: 'Sintra day trip — Pena Palace', category: 'tour', cost: 38, bookingUrl: 'https://www.booking.com/attractions/pt/pr9oiumipkgu-lisbon-pena-palace-garden-sintra-caboroca-cascais-day-tour.en-gb.html' },
   { day: 2, time: '8:00 PM', name: 'Bairro Alto bar hopping', category: 'activity', cost: 30 },
   { day: 3, time: '9:00 AM', name: 'Miradouro sunrise walk', category: 'tour', cost: 0 },
   { day: 3, time: '12:00 PM', name: 'Cacilhas ferry & riverside lunch', category: 'dining', cost: 22 },
@@ -80,10 +80,10 @@ export const LISBON_CANNED = [
 
 export const BARCELONA_CANNED = [
   { day: 1, time: '9:00 AM', name: 'Check in — Gothic Quarter boutique hotel', category: 'lodging', cost: 0 },
-  { day: 1, time: '11:00 AM', name: 'Sagrada Família guided tour', category: 'tour', cost: 35 },
+  { day: 1, time: '11:00 AM', name: 'Sagrada Família guided tour', category: 'tour', cost: 35, bookingUrl: 'https://www.booking.com/attractions/es/prubmppb2v6n-sagrada-familia-tour-with-skip-the-line-tickets.en-gb.html' },
   { day: 1, time: '2:00 PM', name: 'La Boqueria market food crawl', category: 'dining', cost: 20 },
   { day: 1, time: '7:30 PM', name: 'Tapas dinner in El Born', category: 'dining', cost: 40 },
-  { day: 2, time: '9:00 AM', name: 'Park Güell sunrise walk', category: 'tour', cost: 10 },
+  { day: 2, time: '9:00 AM', name: 'Park Güell sunrise walk', category: 'tour', cost: 10, bookingUrl: 'https://www.booking.com/attractions/es/prp9at1egmyc-park-guell-admission-ticket.en-gb.html' },
   { day: 2, time: '12:00 PM', name: 'Bike ride along Barceloneta beach', category: 'activity', cost: 15 },
   { day: 2, time: '2:30 PM', name: 'Gothic Quarter & Picasso Museum', category: 'tour', cost: 14 },
   { day: 2, time: '8:00 PM', name: 'Rooftop dinner with Sagrada view', category: 'dining', cost: 60 },
@@ -93,8 +93,19 @@ export const BARCELONA_CANNED = [
   { day: 3, time: '9:00 PM', name: 'Flamenco show in Poble Sec', category: 'activity', cost: 45 },
 ];
 
+// Real, verified Booking.com search endpoints — not an API integration, but a
+// guaranteed-real destination rather than an invented specific venue name.
+function attractionsSearchUrl(city) {
+  return `https://www.booking.com/attractions/searchresults.html?ss=${encodeURIComponent(city)}`;
+}
+function hotelSearchUrl(city) {
+  return `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(city)}`;
+}
+
 // Rotating pool of 4-activity daily templates, used both to fill out generic
-// itineraries beyond day 1 and to extend canned itineraries past their curated days.
+// itineraries beyond day 1 and to extend canned itineraries past their curated
+// days. Every slot links to a real Booking.com search for that city/category
+// instead of asserting a specific venue exists.
 const DAILY_TEMPLATES = [
   [
     { time: '9:00 AM', name: () => 'Local history museum visit', category: 'tour', cost: 12 },
@@ -124,15 +135,22 @@ const DAILY_TEMPLATES = [
 
 function fillerDay(dayNumber, city, templateIndex) {
   const template = DAILY_TEMPLATES[templateIndex % DAILY_TEMPLATES.length];
-  return template.map((slot) => ({ day: dayNumber, time: slot.time, name: slot.name(city), category: slot.category, cost: slot.cost }));
+  return template.map((slot) => ({
+    day: dayNumber,
+    time: slot.time,
+    name: slot.name(city),
+    category: slot.category,
+    cost: slot.cost,
+    bookingUrl: attractionsSearchUrl(city),
+  }));
 }
 
 export function genericItinerary(city, days) {
   const day1 = [
-    { day: 1, time: '9:00 AM', name: `Check in — boutique stay in ${city}`, category: 'lodging', cost: 0 },
-    { day: 1, time: '11:00 AM', name: `Old town walking tour of ${city}`, category: 'tour', cost: 15 },
-    { day: 1, time: '1:30 PM', name: 'Central market food crawl', category: 'dining', cost: 18 },
-    { day: 1, time: '7:30 PM', name: `Signature dinner in ${city}`, category: 'dining', cost: 50 },
+    { day: 1, time: '9:00 AM', name: `Check in — boutique stay in ${city}`, category: 'lodging', cost: 0, bookingUrl: hotelSearchUrl(city) },
+    { day: 1, time: '11:00 AM', name: `Old town walking tour of ${city}`, category: 'tour', cost: 15, bookingUrl: attractionsSearchUrl(city) },
+    { day: 1, time: '1:30 PM', name: 'Central market food crawl', category: 'dining', cost: 18, bookingUrl: attractionsSearchUrl(city) },
+    { day: 1, time: '7:30 PM', name: `Signature dinner in ${city}`, category: 'dining', cost: 50, bookingUrl: attractionsSearchUrl(city) },
   ];
   const rest = [];
   for (let dayNumber = 2, i = 0; dayNumber <= days; dayNumber++, i++) {

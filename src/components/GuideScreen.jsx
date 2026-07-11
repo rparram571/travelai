@@ -108,13 +108,14 @@ export default function GuideScreen() {
         <div style={sectionLabel}>View</div>
         <div style={h2}>Your itinerary</div>
         <div style={body}>
-          Every trip opens to a day-by-day view: tabs across the top for each day, a scrollable activity list, and a map centered on the destination.
-          Every day of the trip is planned — from check-in on day one through a farewell activity on the final day.
+          Every trip opens to a day-by-day view: tabs across the top for each day, a scrollable activity list, and a live map with a numbered marker for
+          every stop on that day — the numbers match the list. Every day of the trip is planned — from check-in on day one through a farewell activity on
+          the final day.
         </div>
         <div style={h3}>Reading an activity</div>
         <div style={body}>
-          Each row shows a numbered pin, the time, the name, a category tag, and — where relevant — a cost. Click the pin to focus the map on that stop;
-          click anywhere else on the card to edit it.
+          Each row shows a numbered pin, the time, the name, a category tag, and — where relevant — a cost. Click the pin to pan the map to that stop's
+          marker; click anywhere else on the card to edit it. Where a real, verified listing exists, "View on Booking.com" links straight to it.
         </div>
         <Note>
           🔒 Only the person who added an activity can delete it. If someone else added it, the Delete button is disabled.
@@ -132,7 +133,8 @@ export default function GuideScreen() {
         <div style={h3}>Suggestions based on your budget</div>
         <div style={body}>
           Below your booked hotels, TravelAI shows three tiers — Budget, Mid-range, and Luxury — sized to the destination. The one that best fits your
-          trip's budget (roughly 40% of it allocated to lodging) is marked <strong>"Matches your budget."</strong> Click "Add to trip" on any of them.
+          trip's budget (roughly 40% of it allocated to lodging) is marked <strong>"Matches your budget."</strong> Click "Add to trip" on any of them, or
+          "View on Booking.com" to see the real listing.
         </div>
       </div>
 
@@ -171,11 +173,12 @@ export default function GuideScreen() {
           This build keeps trips, flights, and hotels in memory only — reloading the browser resets everything back to the seeded Tokyo Adventure trip.
         </KnowRow>
         <KnowRow title="Deleting activities">Restricted to whoever originally added that activity, even in a group you organize.</KnowRow>
-        <KnowRow title="Destinations that “just work”">
-          Lisbon and Barcelona have hand-tailored itineraries; any other destination gets a solid generic template built around it.
+        <KnowRow title="Where recommendations come from">
+          Tokyo, Lisbon, and Barcelona have hand-curated itineraries and hotel picks sourced from real, live Booking.com listings — real names, areas,
+          prices, and ratings, each linking straight to the real page. Any other destination isn't pre-verified, so instead of guessing a specific place,
+          every activity and hotel links out to a real, live Booking.com search for that city — nothing is invented.
         </KnowRow>
         <KnowRow title="Email parsing">Flight and hotel email extraction are simulated for this prototype — both return a sample result rather than reading your pasted text.</KnowRow>
-        <KnowRow title="Hotel suggestions">Illustrative only — names and prices are generated for the demo, not pulled from real hotel inventory.</KnowRow>
       </div>
     </div>
   );

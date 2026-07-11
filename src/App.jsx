@@ -117,6 +117,7 @@ export default function App() {
       name: a.name,
       category: a.category,
       cost: a.cost,
+      bookingUrl: a.bookingUrl,
       addedBy: 'you',
       notes: '',
     }));
@@ -297,7 +298,7 @@ export default function App() {
               ...t,
               hotels: [
                 ...t.hotels,
-                { id: 'h-' + Date.now(), name: suggestion.name, area: suggestion.area, pricePerNight: suggestion.pricePerNight, nights: t.dayCount, confirmation: null, addedBy: 'you' },
+                { id: 'h-' + Date.now(), name: suggestion.name, area: suggestion.area, pricePerNight: suggestion.pricePerNight, nights: t.dayCount, confirmation: null, url: suggestion.url, addedBy: 'you' },
               ],
             }
       )

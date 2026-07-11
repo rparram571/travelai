@@ -1,5 +1,7 @@
 import { CATEGORY_META } from '../data';
 import HotelsPanel from './HotelsPanel';
+import MapView from './MapView';
+import { hasGoogleMapsKey } from '../googleMapsLoader';
 
 export default function ItineraryScreen({
   trip, activeDay, selectDay, goHome, openMembers, openActivity, focusMapOn, mapFocusId, showAddedByTags,
@@ -16,9 +18,8 @@ export default function ItineraryScreen({
   trip.members.forEach((m) => (memberMap[m.id] = m.name));
 
   const focusedActivity = mapFocusId ? rawDayActs.find((a) => a.id === mapFocusId) : null;
-  const mapQuery = focusedActivity ? `${focusedActivity.name}, ${trip.destination}` : trip.destination;
-  const mapEmbedUrl = mapQuery ? `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=${focusedActivity ? 16 : 13}&output=embed` : '';
   const mapHint = focusedActivity ? `Showing: ${focusedActivity.name}` : 'Showing city overview — tap a numbered pin to locate a stop';
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(trip.destination)}&z=13&output=embed`;
 
   return (
     <div className="screen-pad" style={{ animation: 'riseIn 0.3s ease both' }}>
@@ -162,6 +163,17 @@ export default function ItineraryScreen({
                     {showAddedBy && (
                       <div style={{ fontSize: 11, color: '#A79E8F', marginTop: 5 }}>Added by {memberMap[a.addedBy] || 'You'}</div>
                     )}
+                    {a.bookingUrl && (
+                      <a
+                        href={a.bookingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, color: '#E0663F', textDecoration: 'none', marginTop: 6 }}
+                      >
+                        View on Booking.com ↗
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -174,7 +186,11 @@ export default function ItineraryScreen({
 
         <div style={{ flex: 1, position: 'sticky', top: 0 }}>
           <div style={{ position: 'relative', height: 460, borderRadius: 20, overflow: 'hidden', border: '1px solid #F0E9DC', background: '#EFF6F3' }}>
-            <iframe src={mapEmbedUrl} style={{ width: '100%', height: '100%', border: 0 }} loading="lazy" title="Trip map"></iframe>
+            {hasGoogleMapsKey() ? (
+              <MapView activities={rawDayActs} destination={trip.destination} focusedActivityId={mapFocusId} onMarkerClick={(id) => focusMapOn(id)} />
+            ) : (
+              <iframe src={mapEmbedUrl} style={{ width: '100%', height: '100%', border: 0 }} loading="lazy" title="Trip map"></iframe>
+            )}
           </div>
           <div style={{ fontSize: 12, color: '#A79E8F', marginTop: 10 }}>{mapHint}</div>
         </div>
