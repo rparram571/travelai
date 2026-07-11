@@ -174,7 +174,7 @@ export default function GuideScreen() {
         </KnowRow>
         <KnowRow title="Deleting activities">Restricted to whoever originally added that activity, even in a group you organize.</KnowRow>
         <KnowRow title="Where recommendations come from">
-          Tokyo, Lisbon, and Barcelona have hand-curated itineraries and hotel picks sourced from real, live Booking.com listings — real names, areas,
+          Tokyo, Lisbon, Barcelona, Paris, and London have hand-curated itineraries and hotel picks sourced from real, live Booking.com listings — real names, areas,
           prices, and ratings, each linking straight to the real page. Any other destination isn't pre-verified, so instead of guessing a specific place,
           every activity and hotel links out to a real, live Booking.com search for that city — nothing is invented.
         </KnowRow>

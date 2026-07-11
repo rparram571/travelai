@@ -93,6 +93,36 @@ export const BARCELONA_CANNED = [
   { day: 3, time: '9:00 PM', name: 'Flamenco show in Poble Sec', category: 'activity', cost: 45 },
 ];
 
+export const PARIS_CANNED = [
+  { day: 1, time: '9:00 AM', name: 'Check in — hotel in central Paris', category: 'lodging', cost: 0 },
+  { day: 1, time: '11:00 AM', name: 'Eiffel Tower & Seine River cruise', category: 'tour', cost: 20, bookingUrl: 'https://www.booking.com/attractions/fr/prvpg5s3r713-city-sightseeing-cruise.en-gb.html' },
+  { day: 1, time: '2:00 PM', name: 'Louvre Museum', category: 'tour', cost: 90, bookingUrl: 'https://www.booking.com/attractions/fr/prcon8l4d4vy-priority-admission-to-the-louvre-museum.en-gb.html' },
+  { day: 1, time: '7:30 PM', name: 'Dinner in Le Marais', category: 'dining', cost: 55 },
+  { day: 2, time: '9:00 AM', name: "Musée d'Orsay", category: 'tour', cost: 19, bookingUrl: 'https://www.booking.com/attractions/fr/prf8k7u6zclm-musee-dorsay-admission.en-gb.html' },
+  { day: 2, time: '12:00 PM', name: 'Latin Quarter food crawl', category: 'dining', cost: 25 },
+  { day: 2, time: '2:30 PM', name: "Arc de Triomphe rooftop", category: 'tour', cost: 27, bookingUrl: 'https://www.booking.com/attractions/fr/prza0zcg7yzs-admission-to-the-arc-de-triomphes-rooftop.en-gb.html' },
+  { day: 2, time: '8:00 PM', name: 'Champs-Élysées evening walk & shopping', category: 'shopping', cost: 0 },
+  { day: 3, time: '9:00 AM', name: 'Palace of Versailles day trip', category: 'tour', cost: 37, bookingUrl: 'https://www.booking.com/attractions/fr/prr9h7knmiym-palace-of-versailles.en-gb.html' },
+  { day: 3, time: '1:00 PM', name: 'Lunch in the Versailles gardens', category: 'dining', cost: 24 },
+  { day: 3, time: '4:00 PM', name: "Musée de l'Orangerie", category: 'tour', cost: 20, bookingUrl: 'https://www.booking.com/attractions/fr/prf1tatpq2cs-admission-to-the-orangerie-museum.en-gb.html' },
+  { day: 3, time: '8:30 PM', name: 'Farewell dinner in Saint-Germain', category: 'dining', cost: 60 },
+];
+
+export const LONDON_CANNED = [
+  { day: 1, time: '9:00 AM', name: 'Check in — hotel in Westminster', category: 'lodging', cost: 0 },
+  { day: 1, time: '11:00 AM', name: 'Tower of London & Tower Bridge Exhibition', category: 'tour', cost: 21, bookingUrl: 'https://www.booking.com/attractions/gb/prbcb8atvur6-admission-to-the-tower-bridge-exhibition.en-gb.html' },
+  { day: 1, time: '2:00 PM', name: 'Borough Market food crawl', category: 'dining', cost: 20 },
+  { day: 1, time: '7:30 PM', name: 'Dinner in Covent Garden', category: 'dining', cost: 50 },
+  { day: 2, time: '9:00 AM', name: 'Westminster Abbey & Big Ben walk', category: 'tour', cost: 36, bookingUrl: 'https://www.booking.com/attractions/gb/prwupwe6plqy-admission-to-westminster-abbey-with-audio-guide.en-gb.html' },
+  { day: 2, time: '12:00 PM', name: 'The London Eye', category: 'activity', cost: 35, bookingUrl: 'https://www.booking.com/attractions/gb/prfuy8pijecu-admission-to-the-london-eye-with-4d-cinema-experience.en-gb.html' },
+  { day: 2, time: '3:00 PM', name: "Buckingham Palace & St James's Park walk", category: 'tour', cost: 0 },
+  { day: 2, time: '8:00 PM', name: 'West End show night', category: 'activity', cost: 65 },
+  { day: 3, time: '9:00 AM', name: 'River Thames sightseeing cruise', category: 'tour', cost: 72, bookingUrl: 'https://www.booking.com/attractions/gb/prs7d1dfbrrt-river-thames-cruise.en-gb.html' },
+  { day: 3, time: '12:00 PM', name: 'Camden Market lunch & shopping', category: 'shopping', cost: 20 },
+  { day: 3, time: '3:00 PM', name: 'The View from The Shard', category: 'activity', cost: 31, bookingUrl: 'https://www.booking.com/attractions/gb/prrv8mzf3hgf-the-view-from-the-shard-skip-the-line-admission.en-gb.html' },
+  { day: 3, time: '8:30 PM', name: 'Farewell dinner in Soho', category: 'dining', cost: 58 },
+];
+
 // Real, verified Booking.com search endpoints — not an API integration, but a
 // guaranteed-real destination rather than an invented specific venue name.
 function attractionsSearchUrl(city) {
@@ -178,6 +208,8 @@ export function pickItinerary(destination, days) {
   const city = destination.split(',')[0].trim();
   if (d.includes('lisbon')) return adjustToDays(LISBON_CANNED, days, city);
   if (d.includes('barcelona')) return adjustToDays(BARCELONA_CANNED, days, city);
+  if (d.includes('paris')) return adjustToDays(PARIS_CANNED, days, city);
+  if (d.includes('london')) return adjustToDays(LONDON_CANNED, days, city);
   return genericItinerary(city, days);
 }
 

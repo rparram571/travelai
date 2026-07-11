@@ -17,6 +17,16 @@ const REAL_HOTELS = {
     { tier: 'midrange', tierLabel: 'Mid-range', name: 'Hotel Rialto', area: 'Gothic Quarter', pricePerNight: 202, rating: 8.7, url: 'https://www.booking.com/hotel/es/rialto.html', lat: 41.382107, lng: 2.17643 },
     { tier: 'luxury', tierLabel: 'Luxury', name: 'Hotel 1898', area: 'La Rambla', pricePerNight: 226, rating: 8.9, url: 'https://www.booking.com/hotel/es/hotel.html', lat: 41.383502, lng: 2.171197 },
   ],
+  paris: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Altona', area: '10th arr.', pricePerNight: 140, rating: 7.8, url: 'https://www.booking.com/hotel/fr/altona-paris.html', lat: 48.8825, lng: 2.34973 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Résidence du Pré', area: '9th arr.', pricePerNight: 166, rating: 8.4, url: 'https://www.booking.com/hotel/fr/residence-du-pre.html', lat: 48.87839, lng: 2.347623 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'Pullman Paris Tour Eiffel', area: '15th arr., near the Eiffel Tower', pricePerNight: 470, rating: 8.1, url: 'https://www.booking.com/hotel/fr/tour-eiffel.html', lat: 48.855604, lng: 2.292562 },
+  ],
+  london: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Central Park Hotel', area: 'Bayswater', pricePerNight: 123, rating: 7.2, url: 'https://www.booking.com/hotel/gb/centralparklondon.html', lat: 51.511303, lng: -0.185256 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'citizenM London Bankside', area: 'Southwark', pricePerNight: 156, rating: 8.6, url: 'https://www.booking.com/hotel/gb/citizenm-london-bankside.html', lat: 51.505243, lng: -0.098201 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'The Welbeck Hotel by IHG', area: 'Westminster', pricePerNight: 278, rating: 8.7, url: 'https://www.booking.com/hotel/gb/the-welbeck-hotel.html', lat: 51.516957, lng: -0.14915 },
+  ],
 };
 
 function curatedCityKey(destination) {
@@ -24,6 +34,8 @@ function curatedCityKey(destination) {
   if (d.includes('tokyo')) return 'tokyo';
   if (d.includes('lisbon')) return 'lisbon';
   if (d.includes('barcelona')) return 'barcelona';
+  if (d.includes('paris')) return 'paris';
+  if (d.includes('london')) return 'london';
   return null;
 }
 
