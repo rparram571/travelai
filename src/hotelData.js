@@ -27,6 +27,46 @@ const REAL_HOTELS = {
     { tier: 'midrange', tierLabel: 'Mid-range', name: 'citizenM London Bankside', area: 'Southwark', pricePerNight: 156, rating: 8.6, url: 'https://www.booking.com/hotel/gb/citizenm-london-bankside.html', lat: 51.505243, lng: -0.098201 },
     { tier: 'luxury', tierLabel: 'Luxury', name: 'The Welbeck Hotel by IHG', area: 'Westminster', pricePerNight: 278, rating: 8.7, url: 'https://www.booking.com/hotel/gb/the-welbeck-hotel.html', lat: 51.516957, lng: -0.14915 },
   ],
+  rome: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Hotel Silla', area: 'Vaticano Prati', pricePerNight: 147, rating: 8.4, url: 'https://www.booking.com/hotel/it/silla-roma.html', lat: 41.90934, lng: 12.459121 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Roma Veneto Relais', area: 'Rome City Center', pricePerNight: 190, rating: 8.7, url: 'https://www.booking.com/hotel/it/roma-veneto-relais.html', lat: 41.908489, lng: 12.497386 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'Torre Argentina Relais', area: 'Pantheon', pricePerNight: 436, rating: 9.4, url: 'https://www.booking.com/hotel/it/torre-argentina-relais-residenze-di-charme.html', lat: 41.895249, lng: 12.476264 },
+  ],
+  amsterdam: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Hotel Park Plantage', area: 'Amsterdam City Center', pricePerNight: 163, rating: 7.7, url: 'https://www.booking.com/hotel/nl/alfa-plantage.html', lat: 52.366433, lng: 4.911369 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Hotel Aalders', area: 'Oud Zuid', pricePerNight: 232, rating: 9.0, url: 'https://www.booking.com/hotel/nl/aalders.html', lat: 52.359579, lng: 4.880944 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: "art'otel amsterdam", area: 'Amsterdam City Center', pricePerNight: 404, rating: 8.8, url: 'https://www.booking.com/hotel/nl/art-otel-amsterdam.html', lat: 52.377672, lng: 4.897215 },
+  ],
+  athens: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Athens Connection Apartments', area: 'Athens City Centre', pricePerNight: 85, rating: 8.1, url: 'https://www.booking.com/hotel/gr/the-aa-apartments.html', lat: 37.983805, lng: 23.732905 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Elevate Athens', area: 'Athens City Centre', pricePerNight: 152, rating: 9.1, url: 'https://www.booking.com/hotel/gr/elevate-athens.html', lat: 37.986156, lng: 23.721538 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'B4B Athens Signature Hotel', area: 'Neos Kosmos', pricePerNight: 184, rating: 9.0, url: 'https://www.booking.com/hotel/gr/b-for-boutique-athens-signature.html', lat: 37.965469, lng: 23.730882 },
+  ],
+  bangkok: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Charlie House Pin Klao', area: 'Bangkok Old Town', pricePerNight: 32, rating: 8.7, url: 'https://www.booking.com/hotel/th/charlie-house-pin-klao.html', lat: 13.778128, lng: 100.480779 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Riva Surya Bangkok', area: 'Bangkok Old Town', pricePerNight: 81, rating: 9.2, url: 'https://www.booking.com/hotel/th/riva-surya-bangkok.html', lat: 13.762005, lng: 100.49311 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'lebua at State Tower', area: 'Bang Rak', pricePerNight: 146, rating: 8.7, url: 'https://www.booking.com/hotel/th/lebua-at-state-tower.html', lat: 13.721837, lng: 100.516904 },
+  ],
+  dubai: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Hampton By Hilton Dubai Airport', area: 'Al Qusais', pricePerNight: 46, rating: 7.9, url: 'https://www.booking.com/hotel/ae/hampton-by-hilton-dubai-airport.html', lat: 25.272449, lng: 55.38056 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Royal Central Hotel and Resort The Palm', area: 'Palm Jumeirah', pricePerNight: 105, rating: 8.6, url: 'https://www.booking.com/hotel/ae/royal-central-the-palm.html', lat: 25.126015, lng: 55.152474 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'Kempinski Hotel Mall of the Emirates', area: 'Al Barsha', pricePerNight: 299, rating: 9.0, url: 'https://www.booking.com/hotel/ae/kempinski-mall-of-the-emirates.html', lat: 25.118748, lng: 55.197456 },
+  ],
+  singapore: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'KēSa House', area: 'Chinatown', pricePerNight: 100, rating: 8.6, url: 'https://www.booking.com/hotel/sg/kesa-house-singapore.html', lat: 1.280595, lng: 103.84136 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Holiday Inn Express Singapore Orchard Road', area: 'Somerset', pricePerNight: 174, rating: 8.4, url: 'https://www.booking.com/hotel/sg/holiday-inn-express-singapore-orchard-road.html', lat: 1.303447, lng: 103.836717 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'The Fullerton Hotel Singapore', area: 'Downtown Singapore', pricePerNight: 360, rating: 9.2, url: 'https://www.booking.com/hotel/sg/the-fullerton-singapore.html', lat: 1.28559, lng: 103.853057 },
+  ],
+  cairo: [
+    { tier: 'budget', tierLabel: 'Budget', name: 'Flower Pyramids Inn', area: 'Giza', pricePerNight: 18, rating: 8.8, url: 'https://www.booking.com/hotel/eg/flower-pyramids-inn.html', lat: 29.978046, lng: 31.144414 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'Vincci Pyramids View', area: 'Giza', pricePerNight: 50, rating: 9.5, url: 'https://www.booking.com/hotel/eg/vincci-pyramids-view.html', lat: 29.98225, lng: 31.140036 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'Kempinski Nile Hotel', area: 'Garden City', pricePerNight: 161, rating: 8.6, url: 'https://www.booking.com/hotel/eg/kempinski-nile-cairo.html', lat: 30.038658, lng: 31.230344 },
+  ],
+  'new york': [
+    { tier: 'budget', tierLabel: 'Budget', name: 'ROW NYC at Times Square', area: 'Manhattan', pricePerNight: 295, rating: 7.5, url: 'https://www.booking.com/hotel/us/row-nyc1.html', lat: 40.758762, lng: -73.988463 },
+    { tier: 'midrange', tierLabel: 'Mid-range', name: 'SpringHill Suites Times Square South', area: 'Manhattan', pricePerNight: 322, rating: 8.3, url: 'https://www.booking.com/hotel/us/springhill-suites-by-marriott-new-york-manhattan-times-square-36th-st.html', lat: 40.754011, lng: -73.993972 },
+    { tier: 'luxury', tierLabel: 'Luxury', name: 'The Michelangelo New York', area: 'Manhattan', pricePerNight: 446, rating: 8.5, url: 'https://www.booking.com/hotel/us/the-michelangelo.html', lat: 40.76157, lng: -73.982578 },
+  ],
 };
 
 function curatedCityKey(destination) {
@@ -36,6 +76,14 @@ function curatedCityKey(destination) {
   if (d.includes('barcelona')) return 'barcelona';
   if (d.includes('paris')) return 'paris';
   if (d.includes('london')) return 'london';
+  if (d.includes('rome')) return 'rome';
+  if (d.includes('amsterdam')) return 'amsterdam';
+  if (d.includes('athens')) return 'athens';
+  if (d.includes('bangkok')) return 'bangkok';
+  if (d.includes('dubai')) return 'dubai';
+  if (d.includes('singapore')) return 'singapore';
+  if (d.includes('cairo')) return 'cairo';
+  if (d.includes('new york')) return 'new york';
   return null;
 }
 
